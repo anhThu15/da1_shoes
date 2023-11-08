@@ -19,5 +19,5 @@ if(isset($_GET['mod']) ){
 }else{
     header('Location: ?mod=page&act=home');
 }
-
+//  hahahaha aaahahhahahaha
 ?>
