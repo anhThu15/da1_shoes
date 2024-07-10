@@ -1,0 +1,44 @@
+@Nguyễn Lê Phương Uyên 
+      load sp lên trang chủ, 
+      check form và 
+      test web, 
+      figma mobile.
+Ngân : search, 
+      phân trang, 
+      cmt, 
+      figma desktop
+Đặng Thị Kim Phượng 
+      crud user, 
+      brand, 
+      doc, 
+      load sp chi tiết theo danh mục,
+      load sp chi tiết theo thương hiệu 
+Trần thanh thế
+     load sản phẩm ngẫu nhiên 
+     load sản phẩm mới nhất 
+     load sản phẩm 
+     sản phẩm chi tiết 
+      load sp theo danh mục 
+     load sp theo thương hiệu
+     doc
+Khắc Huy 
+     figma desktop
+     site map 
+     usecase
+     Crud : Product
+     Crud : brand
+     Load Brand
+     Template Admin  + Webiste
+Thư : erd, 
+      figma mobile,
+      db , 
+      host, 
+      mvc, 
+      sửa thông tin tài khoản, 
+      doc,
+      đăng ký, dang nhap
+      thêm xóa giỏ hàng 
+      bill,
+      crud cart.
+
+     

@@ -1,0 +1,12 @@
+.box img {
+    width: 50rem;
+    height: 20rem;
+    overflow: hidden;
+}
+.box1 img {
+    object-fit: cover;
+}
+a{
+    list-style: none;
+    color: black;
+}

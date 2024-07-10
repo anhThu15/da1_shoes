@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="template/karma-master/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="template/karma-master/css/magnific-popup.css">
 	<link rel="stylesheet" href="template/karma-master/css/main.css">
+	<link rel="stylesheet" href="template/style.css">
 </head>
 
 <body>
@@ -50,39 +51,53 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="?mod=page&act=home">Home</a></li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
+							<li class="nav-item <?= (stripos($view_name,'home')>0?'active':'') ?>"><a class="nav-link" href="?mod=page&act=home">Home</a></li>
+							<li class="nav-item <?= (stripos($view_name,'category')>0?'active':'') ?> "><a class="nav-link" href="?mod=page&act=category">Shop</a></li>
+								<!-- <ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=category">Shop Category</a></li>
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=detail">Product Details</a></li>
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=checkout">Product Checkout</a></li>
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=cart">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=confirmation">Confirmation</a></li>
-								</ul>
-							</li>
+								</ul> -->
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								<a href="#" class="nav-link dropdown-toggle <?= (stripos($view_name,'blog')>0?'active':'') ?>" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=blog">Blog</a></li>
 									<li class="nav-item"><a class="nav-link" href="?mod=page&act=blog_detail">Blog Details</a></li>
 								</ul>
 							</li>
+							<li class="nav-item"><a class="nav-link <?= (stripos($view_name,'contact')>0?'active':'') ?>" href="?mod=page&act=contact">Contact</a></li>
+
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								aria-expanded="false"><i class="fa-regular fa-user"></i></a>
 								<ul class="dropdown-menu">
+							<?php if(!isset($_SESSION['user']) ): ?>
+								    <li class="nav-item"><a class="nav-link" href="?mod=user&act=login">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="?mod=user&act=signin">Sign in</a></li>
+							<?php else: ?>   
+								    <li class="nav-item"><a class="nav-link" href="?mod=user&act=in4">Xin chèo, <?=$_SESSION['user']['user_fullname'] ?> </a></li>
+									<?php if($_SESSION['user']['user_permission'] == 3): ?>
+									<li class="nav-item"><a class="nav-link" href="?mod=admin&act=dashboard">Admin/Dashboard</a></li>
+									<?php endif; ?>
+									<li class="nav-item"><a class="nav-link" href="?mod=page&act=bill">Bill</a></li>
+								 	<li class="nav-item"><a class="nav-link" href="?mod=user&act=logout">Logout</a></li>
+							<?php endif; ?>
+								</ul>
+							</li>
+							
+								<!-- <ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="?mod=user&act=login">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="?mod=page&act=contact">Contact</a></li>
+								</ul> -->
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+						<?php if(isset($_SESSION['user']) ): ?>
+							<li class="nav-item"><a href="?mod=page&act=cart" class="cart"><span class="ti-bag"></span></a></li>
+						<?php endif; ?>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -93,8 +108,8 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+				<form class="d-flex justify-content-between" action="?mod=page&act=search" method="post">
+					<input type="text" class="form-control" name="key" id="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -111,12 +126,12 @@
 				<div class="col-lg-12">
 					<div class="active-banner-slider owl-carousel">
 						<!-- single-slide -->
-						<div class="row single-slide align-items-center d-flex">
+						<div class="row single-slide align-items-center d-flex" style="padding-top: 160px;">
 							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">
 									<h1>Nike New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+									<p>The Nike Vomero 17 is a good, premium trainer that delivers a cushioned, stable ride.
+										 It has a balanced ride suitable for most types of runs. While it isn't as exciting as some of the other premium...</p>
 									<div class="add-bag d-flex align-items-center">
 										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
 										<span class="add-text text-uppercase">Add to Bag</span>
@@ -129,13 +144,32 @@
 								</div>
 							</div>
 						</div>
+							<!-- single-slide -->
+							<div class="row single-slide align-items-center d-flex">
+							<div class="col-lg-5 col-md-6">
+								<div class="banner-content">
+									<h1>Adidas New <br>Collection!</h1>
+									<p>ADIDAS WITH ROBUST GROWTH IN THE THIRD QUARTER AS MACROECONOMIC CHALLENGES INCREASE</p>
+									<div class="add-bag d-flex align-items-center">
+										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase">Add to Bag</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="banner-img">
+									<img class="img-fluid" src="template/karma-master/img/banner/banner3.png" alt="">
+								</div>
+							</div>
+						</div>
 						<!-- single-slide -->
-						<div class="row single-slide">
+						<div class="row single-slide" style="padding-top: 180px;">
 							<div class="col-lg-5">
 								<div class="banner-content">
 									<h1>Nike New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+									<p>Satan Shoes featured Nike’s swoosh logo and a bronze, pentagram-shaped charm. 
+										“Luke 10:18” is a reference to the biblical passage: “I saw Satan fall like lightning 
+										from heaven.”Credit...MSCHF, via Reuters</p>
 										<div class="add-bag d-flex align-items-center">
 											<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
 											<span class="add-text text-uppercase">Add to Bag</span>
@@ -144,7 +178,7 @@
 								</div>
 								<div class="col-lg-7">
 									<div class="banner-img">
-										<img class="img-fluid" src="template/karma-master/img/banner/banner-img.png" alt="">
+										<img class="img-fluid" src="template/karma-master/img/banner/banner4.png" style="width: 2000px;" alt="">
 									</div>
 								</div>
 							</div>
@@ -393,6 +427,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="template/karma-master/https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="template/karma-master/js/gmaps.min.js"></script>
 	<script src="template/karma-master/js/main.js"></script>
+	<script src="https://kit.fontawesome.com/6895c8023a.js" crossorigin="anonymous"></script>
+	<script src="template/jquery-ui-1.13.2/jquery-ui.min.js"></script>
 </body>
 
 </html>

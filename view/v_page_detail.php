@@ -6,8 +6,8 @@
 					<h1>Product Details Page</h1>
 					<nav class="d-flex align-items-center">
 						<a href="?mod=page&act=home">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="single-product.html">product-details</a>
+						<a href="?mod=page&act=category">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="">Product-Details</a>
 					</nav>
 				</div>
 			</div>
@@ -22,7 +22,7 @@
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="template/karma-master/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid" src="upload/product/<?= $pr_detail['product_img']?>" alt="">
 						</div>
 						<div class="single-prd-item">
 							<img class="img-fluid" src="template/karma-master/img/category/s-p1.jpg" alt="">
@@ -34,15 +34,31 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>Faded SkyBlu Denim Jeans</h3>
-						<h2>$149.99</h2>
+						<h3><?= $pr_detail['product_name'] ?></h3>
+						<h2><?= $pr_detail['product_price'] ?>VND</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							<li><a class="active" href="#"><span>Brand</span> : <?= $pr_detail['brand_name'] ?></a></li>
+							<li><a class="active" href="#"><span>Category</span> : <?= $pr_detail['categorys_name'] ?></a></li>
 						</ul>
-						<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-							something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-							during the winter.</p>
+						<p><?= $pr_detail['product_description'] ?></p>
+						Size char: 
+						<div> 
+						<a href="#" class="genric-btn primary-border circle" >EU 44</a>
+						<a href="#" class="genric-btn primary-border circle">EU 43</a>
+						<a href="#" class="genric-btn primary-border circle active">EU 42</a>
+						<a href="#" class="genric-btn primary-border circle">EU 41</a>
+						</div><br>
+						<div> 
+						<a href="#" class="genric-btn primary-border circle">EU 40</a>
+						<a href="#" class="genric-btn primary-border circle">EU 39</a>
+						<a href="#" class="genric-btn primary-border circle">EU 38</a>
+						<a href="#" class="genric-btn primary-border circle">EU 37</a>
+						</div><br>
+						<?php if(isset($_SESSION['thongbao'])): ?>
+                                <div class="alert alert-success" role="alert">
+                                <?= $_SESSION['thongbao'] ?>
+                                </div>
+                            <?php endif; unset($_SESSION['thongbao']); ?>
 						<div class="product_count">
 							<label for="qty">Quantity:</label>
 							<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
@@ -52,7 +68,7 @@
 							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn" href="#">Add to Cart</a>
+							<a class="primary-btn" href="?mod=page&act=add_cart&id=<?=  $pr_detail['product_id'] ?>">Add to Cart</a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
@@ -75,13 +91,13 @@
 					 aria-selected="false">Specification</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+					<a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 					 aria-selected="false">Comments</a>
 				</li>
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
 					 aria-selected="false">Reviews</a>
-				</li>
+				</li> -->
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -173,26 +189,28 @@
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+				<div class="tab-pane  active" id="contact" role="tabpanel" aria-labelledby=" review-tab">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="comment_list">
+								<!-- tk coment -->
+								<?php foreach($coment as $c):?>
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
-											<img src="template/karma-master/img/product/review-1.png" alt="">
+											<img src="upload/avatar/<?= $c['user_img'] ?>"  Width="70px" style="border-radius: 50px;" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
+											<h4><?= $c['user_fullname'] ?></h4>
+											<h5><?= $c['coment_day'] ?></h5>
 											<a class="reply_btn" href="#">Reply</a>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
+									<p><?= $c['coment_text'] ?></p>
 								</div>
-								<div class="review_item reply">
+								<?php endforeach; ?>
+								<!-- tk coment -->
+								<!-- <div class="review_item reply">
 									<div class="media">
 										<div class="d-flex">
 											<img src="template/karma-master/img/product/review-2.png" alt="">
@@ -221,42 +239,47 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
 										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
 										commodo</p>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Post a comment</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<!-- cờ men ở đây -->
+								<?php if(isset($_SESSION['user'])) :?>
+								<form class="row contact_form" action="?mod=page&act=detail_comment" method="post" >
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
+											<input type="hidden" class="form-control" name="product_id" value="<?= $pr_detail['product_id']  ?>"  placeholder="">
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+											<input type="hidden" class="form-control"  name="coment_day" placeholder="Email Address">
 										</div>
 									</div>
-									<div class="col-md-12">
+									<!-- <div class="col-md-12">
 										<div class="form-group">
 											<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
 										</div>
-									</div>
+									</div> -->
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
+											<textarea class="form-control" name="coment_text" rows="1" placeholder="Message"></textarea>
 										</div>
 									</div>
 									<div class="col-md-12 text-right">
 										<button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
 									</div>
 								</form>
+								<?php endif; ?>
+								<!-- cờ men ở đây -->
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+
+				<div class="tab-pane fade show " id="review" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="row total_rate">
@@ -354,7 +377,7 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<p>Outstanding</p>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<form class="row contact_form" action="?mod=page&act=detail_comment" method="post" >
 									<div class="col-md-12">
 										<div class="form-group">
 											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
